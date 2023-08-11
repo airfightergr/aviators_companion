@@ -15,7 +15,11 @@ A desktop app with some tools useful to flight sim aviators. Currently only for 
 
 ### Usage
 
-The app is located in the `bin` folder. The app now is only ready to be use in terminal.
+The app is located in the `bin` folder. ~~The app now is only ready to be use in terminal.~~
+
+Add UI based on [cimgui](https://github.com/cimgui/cimgui), a thin c-api wrapper for [Dear ImGui](https://github.com/ocornut/imgui).
+
+Still WIP, though!
 
 To run it from root folder, open it in terminal and run:
 
