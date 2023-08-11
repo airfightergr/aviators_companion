@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 
     // main
 
-    main_func();
+//    main_func();
 
 
     if (!glfwInit())
@@ -91,6 +91,8 @@ int main(int argc, char *argv[])
     igStyleColorsDark(NULL);
 
     // Custom Font?
+//    ImFontAtlas_AddFontFromFileTTF(ioptr->Fonts,"../fonts/SVBasicManual.ttf", 20, NULL, NULL);
+    ImFontAtlas_AddFontFromFileTTF(ioptr->Fonts,"../fonts/Cabin-Regular.otf", 20, NULL, NULL);
     //ImFontAtlas_AddFontFromFileTTF(igGetIO()->Fonts, "fonts/Sono_Regular.ttf", 20, NULL, NULL);
 
 
@@ -134,6 +136,7 @@ int main(int argc, char *argv[])
             igBegin("Aviator's Companion", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoTitleBar);
             igText("Temperature Conversions");
 
+            igPushItemWidth(250);
             if (igBeginCombo("##combo", curr_temp_scale, 0))
             {
                 for (int n = 0; n < 2; n++)
@@ -146,33 +149,38 @@ int main(int argc, char *argv[])
                 }
                 igEndCombo();
             }
+            igPopItemWidth();
 
+            igPushItemWidth(65);
             if (strcmp(curr_temp_scale, "Celsius to Fahrenheit") == 0)
             {
-                igText("C to F");
+                igText("Enter Temp in Celsius:");
+                igSameLine(0, 30);
                 igInputText("##c_temp", celsius, sizeof(celsius), ImGuiInputTextFlags_None, 0,0);
                 float c_out = temp_c_to_f(atof(celsius));
                 igText("Fahrenheit: ");
                 if (strcmp(celsius, "") != 0)   // show output value only if user has enter some value
                 {
-                    igSameLine(100, 0);
+                    igSameLine(0, 120);
                     igText("%.1f", c_out);
                 }
 
             }
             else
             {
-                igText("F to C");
+                igText("Enter Temp in Fahrenheit:");
+                igSameLine(0, 10);
                 igInputText("##f_temp", fahren, sizeof(fahren), ImGuiInputTextFlags_None, 0,0);
                 float f_out = temp_f_to_c(atof(fahren));
                 igText("Celsius: ");
                 if (strcmp(fahren, "") != 0)    // show output value only if user has enter some value
                 {
-                    igSameLine(100, 0);
+                    igSameLine(0, 135);
                     igText("%.1f", f_out);
                 }
 
             }
+            igPopItemWidth();
 
 
 
