@@ -2,12 +2,13 @@
 // Created by ilias on 8/2/23.
 //
 
+// system headers
 #include <stdio.h>
 #include <string.h>
 
-// my header flies
+// my header files
 #include "conversions.h"
-
+//#include "cimgui_main.h"
 
 //Defines
 #define KGR_TO_LBS = 2.20462;
@@ -15,9 +16,12 @@
 #define F_TO_C = 2.154;
 #define C_TO_F = 0.254;
 
+float my_size = .546;
 
-int main()
+void main_func(void)
 {
+
+
 
     // Select the type of conversion you want
     int conv_sel;
@@ -82,5 +86,5 @@ int main()
         printf("Wrong selection! Try again!\n");
     }
 
-    return 0;
+//    return 0;
 }
