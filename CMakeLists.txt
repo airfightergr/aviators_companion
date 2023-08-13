@@ -88,14 +88,19 @@ ENDIF()
 target_link_libraries(cimgui ${IMGUI_LIBRARIES} glfw)
 
 include_directories(cimgui/generator/output/)
-
+include_directories(libs/)
 
 add_executable(aviators_companion src/main.c
         src/conversions.h
         src/conversions.c
         src/cimgui_main.c
         src/cimgui_main.h
-        src/main.h)
+        src/main.h
+        src/fuel.c
+        src/fuel.h
+        src/images.c
+        src/images.h
+)
 
 set(BIN_DIR "${PROJECT_SOURCE_DIR}/bin")
 

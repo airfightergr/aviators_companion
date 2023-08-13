@@ -1,0 +1,8 @@
+//
+// Created by ilias on 8/12/23.
+//
+
+#ifndef AVIATORS_COMPANION_FUEL_H
+#define AVIATORS_COMPANION_FUEL_H
+
+#endif //AVIATORS_COMPANION_FUEL_H
