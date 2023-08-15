@@ -120,6 +120,8 @@ int main(int argc, char *argv[])
     temp_size.y = 0;
     char celsius[8];
     char fahren[8];
+    char hpa[8];
+    char inhg[8];
 
     const char * fuel_types[] = {"JET A-1", "AVGAS"};
     static const char * curr_fuel_type = "JET A-1";
@@ -151,11 +153,6 @@ int main(int argc, char *argv[])
 
         // show a simple window that we created ourselves.
         {
-
-            // back image
-//            igBegin("backimage", NULL, 0);
-//            igImage(image, back_size, back_size, back_size, frame_col, frame_col);
-//            igEnd();
 
             // Temp Conv
             igPushStyleVar_Float(ImGuiStyleVar_WindowRounding,10.0f);
@@ -206,61 +203,63 @@ int main(int argc, char *argv[])
             }
 
             igEndTabBar();
-
-
-
-//
-//            igNewLine();
-//
-//            igPushItemWidth(250);
-//            if (igBeginCombo("##combo", curr_temp_scale, 0))
-//            {
-//                for (int n = 0; n < 2; n++)
-//                {
-//                    bool is_selected = (curr_temp_scale == temp_scale[n]);
-//                    if (igSelectable_Bool(temp_scale[n], is_selected, ImGuiSelectableFlags_None, temp_size))
-//                        curr_temp_scale = temp_scale[n];
-//                    if (is_selected)
-//                        igSetItemDefaultFocus();
-//                }
-//                igEndCombo();
-//            }
-//            igPopItemWidth();
-//
-//            igPushItemWidth(65);
-//            if (strcmp(curr_temp_scale, "Celsius to Fahrenheit") == 0)
-//            {
-//                igText("Enter Temp in Celsius:");
-//                igSameLine(0, 30);
-//                igInputText("##c_temp", celsius, sizeof(celsius), ImGuiInputTextFlags_None, 0,0);
-//                float c_out = temp_c_to_f(atof(celsius));
-//                igText("Fahrenheit: ");
-//                if (strcmp(celsius, "") != 0)   // show output value only if user has enter some value
-//                {
-//                    igSameLine(0, 105);
-//                    igText("%.1f", c_out);
-//                }
-//
-//            }
-//            else
-//            {
-//                igText("Enter Temp in Fahrenheit:");
-//                igSameLine(0, 10);
-//                igInputText("##f_temp", fahren, sizeof(fahren), ImGuiInputTextFlags_None, 0,0);
-//                float f_out = temp_f_to_c(atof(fahren));
-//                igText("Celsius: ");
-//                if (strcmp(fahren, "") != 0)    // show output value only if user has enter some value
-//                {
-//                    igSameLine(0, 137);
-//                    igText("%.1f", f_out);
-//                }
-//
-//            }
-//            igPopItemWidth();
             igPopStyleVar(2);
             igPopStyleColor(1);
             igEnd();
 
+
+            // Baro pressure window
+            igPushStyleVar_Float(ImGuiStyleVar_WindowRounding,10.0f);
+            igPushStyleVar_Float(ImGuiStyleVar_FrameRounding,5.0f);
+            igPushStyleColor_Vec4(ImGuiCol_WindowBg, frame_col);
+
+            igBegin("baroPress", NULL,  ImGuiWindowFlags_NoResize |ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+            igText("BAROMETRIC PRESSURE CONVERSION");
+
+            if (igBeginTabBar("tabs", ImGuiTabBarFlags_None))
+            {
+                // hpa -> inhg
+                if (igBeginTabItem("hPa to inHg", NULL, ImGuiTabItemFlags_None))
+                {
+                    igText("Enter barometric pressure in hPa:");
+                    igSameLine(300, 0);
+                    igPushItemWidth(65);
+                    igInputText("##hpa_pr", hpa, sizeof(hpa), ImGuiInputTextFlags_None, 0,0);
+                    igPopItemWidth();
+                    float press_out = hpa_to_inHg(atof(hpa));
+                    igText("Barometric Pressure inHg: ");
+                    if (strcmp(hpa, "") != 0)
+                    {
+                        igSameLine(305, 0);
+                        igText("%.2f", press_out);
+                    }
+                    igEndTabItem();
+                }
+
+
+                // inhg -> hpa
+                if (igBeginTabItem("inHg to hPa", NULL, ImGuiTabItemFlags_None))
+                {
+                    igText("Enter barometric pressure in inHg:");
+                    igSameLine(300, 0);
+                    igPushItemWidth(65);
+                    igInputText("##inhg_pr", inhg, sizeof(inhg), ImGuiInputTextFlags_None, 0,0);
+                    igPopItemWidth();
+                    float press_out2 = inHg_to_hpa(atof(inhg));
+                    igText("Barometric Pressure hPa: ");
+                    if (strcmp(inhg, "") != 0)
+                    {
+                        igSameLine(305, 0);
+                        igText("%.1f", press_out2);
+                    }
+                    igEndTabItem();
+                }
+
+            }
+            igEndTabBar();
+            igPopStyleVar(2);
+            igPopStyleColor(1);
+            igEnd();
 
             // fuel window
             igPushStyleVar_Float(ImGuiStyleVar_WindowRounding,10.0f);
@@ -307,6 +306,21 @@ int main(int argc, char *argv[])
             igPopStyleVar(2);
             igPopStyleColor(1);
             igEnd();
+
+
+            // weather
+            igPushStyleVar_Float(ImGuiStyleVar_WindowRounding,10.0f);
+            igPushStyleVar_Float(ImGuiStyleVar_FrameRounding,5.0f);
+            igPushStyleColor_Vec4(ImGuiCol_WindowBg, frame_col);
+            igBegin("weather", NULL,  ImGuiWindowFlags_NoResize |ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+            igText("WEATHER");
+            igPopStyleVar(2);
+            igPopStyleColor(1);
+            igEnd();
+
+
+
+
 
             // demo window
             static float f = 0.0f;

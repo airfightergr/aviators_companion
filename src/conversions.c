@@ -47,3 +47,26 @@ float weight_lbs_to_kg(float lbs){
 
     return kg;
 }
+
+
+double hpa_to_inHg(double hpa){
+
+    double inHg;
+
+    inHg = hpa * 0.0295302;
+
+    return inHg;
+}
+
+
+double inHg_to_hpa(double inHg){
+
+    double hpa;
+
+    hpa = inHg / 0.0295302;
+
+    return hpa;
+}
+
+
+
