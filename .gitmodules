@@ -1,0 +1,3 @@
+[submodule "aviators_companion/imgui"]
+	path = aviators_companion/imgui
+	url = https://github.com/ocornut/imgui
